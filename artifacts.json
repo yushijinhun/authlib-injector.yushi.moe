@@ -1,9 +1,13 @@
 {
-  "latest_build_number": 10,
+  "latest_build_number": 11,
   "artifacts": [
     {
       "build_number": 10,
       "version": "1.0.10-8aa3f20"
+    },
+    {
+      "build_number": 11,
+      "version": "1.1.11-bfa2629"
     },
     {
       "build_number": 1,
