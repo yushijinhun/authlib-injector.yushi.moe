@@ -1,5 +1,5 @@
 {
-  "latest_build_number": 8,
+  "latest_build_number": 9,
   "artifacts": [
     {
       "build_number": 1,
@@ -28,6 +28,10 @@
     {
       "build_number": 8,
       "version": "1.0.8-feab914"
+    },
+    {
+      "build_number": 9,
+      "version": "1.0.9-1731f0b"
     }
   ]
 }
