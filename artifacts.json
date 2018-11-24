@@ -1,5 +1,5 @@
 {
-  "latest_build_number": 21,
+  "latest_build_number": 23,
   "artifacts": [
     {
       "build_number": 1,
@@ -60,6 +60,10 @@
     {
       "build_number": 22,
       "version": "1.1.22-69c4067"
+    },
+    {
+      "build_number": 23,
+      "version": "1.1.23-209ba0e"
     },
     {
       "build_number": 3,
