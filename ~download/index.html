@@ -110,7 +110,7 @@
 				document.getElementById("versionInfoVersion").textContent = versionInfo.version;
 				document.getElementById("versionInfoBuildNumber").textContent = versionInfo.build_number;
 				document.getElementById("versionInfoSHA256").textContent = versionInfo.checksums.sha256;
-				document.getElementById("versionInfoDownloadBtn").setAttribute("href", versionInfo.download_url.replace(/https:\/\/authlib-injector\.yushi\.moe\//gi,"../"));
+				document.getElementById("versionInfoDownloadBtn").setAttribute("href", versionInfo.download_url);
 				document.getElementById("versionInfo").classList.remove("d-none");
 			})
 			.catch(error => {
