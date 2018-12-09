@@ -1,20 +1,19 @@
-version: 2
-general:
-  branches:
-    only:
-      - master
-
-jobs:
-  build:
-    docker:
-      - image: circleci/openjdk:11.0.1-jdk-sid
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-          - v1-cache
-      - run: ./.circleci/deploy-bmclapi.sh
-      - save_cache:
-          paths:
-            - ~/bmclapi
-          key: v1-cache-{{ epoch }}
+version: 2.1
+workflows:
+  bmclapi:
+    jobs:
+      build:
+        docker:
+          - image: circleci/openjdk:11.0.1-jdk-sid
+        steps:
+          - checkout
+          - restore_cache:
+              keys:
+                - v1-cache
+          - run: ./.circleci/deploy-bmclapi.sh
+          - save_cache:
+              paths:
+                - ~/bmclapi
+              key: v1-cache-{{ epoch }}
+        branches:
+          only: master
