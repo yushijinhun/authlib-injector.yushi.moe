@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>获取 authlib-injector</title>
+
+	<link rel="icon" href="img/favicon.png">
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+	 crossorigin="anonymous">
+
+	<style>
+		.navbar {
+			margin-bottom: 30px;
+		}
+
+		#versionInfo .table th {
+			width: 10%;
+		}
+
+		#versionInfoSHA256 {
+			word-break: break-all;
+		}
+	</style>
+
+</head>
+
+<body>
+
+	<!-- Navbar -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">authlib-injector</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="#">下载</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="https://github.com/yushijinhun/authlib-injector/wiki">Wiki</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="https://github.com/yushijinhun/authlib-injector">GitHub</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<!---->
+
+	<div class="container">
+
+		<h2>最新版本</h2>
+
+		<div id="loadingPlaceholder">
+			<span class="text-secondary">正在获取版本信息...</span>
+		</div>
+
+		<div id="loadingErrorAlert" class="alert alert-danger d-none" role="alert">
+			无法获取版本信息
+		</div>
+
+		<div id="versionInfo" class="card d-none">
+			<div class="card-body">
+				<table class="table table-sm table-hover table-borderless">
+					<tbody>
+						<tr>
+							<th scope="row">文件名</th>
+							<td id="versionInfoFileName">$fileName</td>
+						</tr>
+						<tr>
+							<th scope="row">版本号</th>
+							<td id="versionInfoVersion">$version</td>
+						</tr>
+						<tr>
+							<th scope="row">构建编号</th>
+							<td id="versionInfoBuildNumber">$buildNumber</td>
+						</tr>
+						<tr>
+							<th scope="row">SHA-256</th>
+							<td id="versionInfoSHA256">$sha256</td>
+						</tr>
+					</tbody>
+				</table>
+				<a id="versionInfoDownloadBtn" href="$downloadUrl" class="btn btn-primary">下载</a>
+			</div>
+		</div>
+
+	</div>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	 crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+	 crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+	 crossorigin="anonymous"></script>
+
+	<script>
+		fetch("../artifact/latest.json", {
+			cache: "no-cache",
+			mode: "cors"
+		})
+			.then(response => response.json())
+			.then(versionInfo => {
+				document.getElementById("versionInfoFileName").textContent = versionInfo.download_url.split("/").pop();
+				document.getElementById("versionInfoVersion").textContent = versionInfo.version;
+				document.getElementById("versionInfoBuildNumber").textContent = versionInfo.build_number;
+				document.getElementById("versionInfoSHA256").textContent = versionInfo.checksums.sha256;
+				document.getElementById("versionInfoDownloadBtn").setAttribute("href", versionInfo.download_url.replace(/https:\/\/authlib-injector\.yushi\.moe\//gi,"../"));
+				document.getElementById("versionInfo").classList.remove("d-none");
+			})
+			.catch(error => {
+				console.error("Failed to fetch version info: " + error);
+				document.getElementById("loadingErrorAlert").classList.remove("d-none");
+			})
+			.then(() => document.getElementById("loadingPlaceholder").classList.add("d-none"));
+	</script>
+
+</body>
+
+</html>

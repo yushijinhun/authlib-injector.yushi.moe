@@ -1,0 +1,8 @@
+{
+    "artifacts_list_url": "https://authlib-injector.yushi.moe/artifacts.json",
+    "artifact_url": "https://authlib-injector.yushi.moe/artifact/{build_number}.json",
+    "latest_artifact_url": "https://authlib-injector.yushi.moe/artifact/latest.json",
+    "metadata": {
+        "github_url": "https://github.com/yushijinhun/authlib-injector.yushi.moe"
+    }
+}
