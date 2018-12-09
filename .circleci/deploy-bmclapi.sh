@@ -23,5 +23,5 @@ git config --local user.name 'authlib-injector Deploy Bot'
 git config --local user.email 'authlib-injector-deploy-bot@yushi.moe'
 git --work-tree=/tmp/bmclapi-deploy add --all
 git commit -m 'Deploy BMCLAPI mirror'
-echo git push 'git@github.com:yushijinhun/authlib-injector.yushi.moe' bmclapi:bmclapi
+git push 'git@github.com:yushijinhun/authlib-injector.yushi.moe' bmclapi:bmclapi
 popd
