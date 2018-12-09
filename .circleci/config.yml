@@ -14,4 +14,5 @@ jobs:
             - ~/bmclapi
           key: v1-cache-{{ epoch }}
     branches:
-      only: master
+      only:
+        - master
