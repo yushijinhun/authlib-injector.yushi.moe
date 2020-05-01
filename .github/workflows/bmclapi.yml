@@ -63,7 +63,7 @@ jobs:
         git config --local user.name "authlib-injector Deploy Bot"
         git config --local user.email "authlib-injector-deploy-bot@yushi.moe"
         git --work-tree=$BMCLAPI_WORKTREE_PATH add --all
-        if git diff-index --quiet HEAD --; then
+        if git --work-tree=$BMCLAPI_WORKTREE_PATH diff-index --quiet HEAD --; then
           # clean
           echo "No change to deploy"
         else
