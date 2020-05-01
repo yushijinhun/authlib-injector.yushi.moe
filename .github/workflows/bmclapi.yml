@@ -47,7 +47,8 @@ jobs:
       working-directory: ${{ env.BMCLAPI_WORKTREE_PATH }}
       run: |
         rm --recursive --force --verbose -- .github .nojekyll CNAME
-        git --git-dir=$HOME/bmclapi/.git checkout -- README.md "~download/index.html"
+        git --git-dir=$HOME/bmclapi/.git checkout -- README.md
+        sed -zEi 's/<!-- \[\[IF_BMCLAPI\]\](.*)-->/\1/g' "~download/index.html"
 
     - name: Apply patches
       shell: bash
