@@ -59,8 +59,8 @@ jobs:
     - name: Deploy
       shell: bash
       run: |
-		ls ~
-		cd ~/bmclapi
+        ls ~
+        cd ~/bmclapi
         git config --local user.name "authlib-injector Deploy Bot"
         git config --local user.email "authlib-injector-deploy-bot@yushi.moe"
         git --work-tree=${bmclapi_worktree} add --all
