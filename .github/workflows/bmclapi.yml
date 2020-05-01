@@ -63,6 +63,16 @@ jobs:
         git config --local user.name "authlib-injector Deploy Bot"
         git config --local user.email "authlib-injector-deploy-bot@yushi.moe"
         git --work-tree=$BMCLAPI_WORKTREE_PATH add --all
-        git commit -m "Deploy BMCLAPI mirror"
-        git push "git@github.com:yushijinhun/authlib-injector.yushi.moe" bmclapi:bmclapi
+        if git diff-index --quiet HEAD --; then
+          # clean
+          echo "No change to deploy"
+        else
+          # dirty
+          git commit -m "Deploy BMCLAPI mirror
+        
+        From commit: $GITHUB_SHA
+        GitHub Action ID: $GITHUB_ACTION
+        "
+          git push "git@github.com:yushijinhun/authlib-injector.yushi.moe" bmclapi:bmclapi
+        fi
 
