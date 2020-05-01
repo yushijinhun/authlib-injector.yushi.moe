@@ -46,7 +46,6 @@ jobs:
       shell: bash
       working-directory: ${{ env.bmclapi_worktree }}
       run: |
-        pwd
         rm --recursive --force --verbose -- .github .nojekyll CNAME
         git --git-dir=$HOME/bmclapi/.git checkout -- README.md "~download/index.html"
 
@@ -59,7 +58,7 @@ jobs:
 
     - name: Deploy
       shell: bash
-      working-directory: ~/bmclapi
+      working-directory: ${{ env.HOME }}/bmclapi
       run: |
         git config --local user.name "authlib-injector Deploy Bot"
         git config --local user.email "authlib-injector-deploy-bot@yushi.moe"
