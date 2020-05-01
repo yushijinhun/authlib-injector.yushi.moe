@@ -35,23 +35,34 @@ jobs:
           git clone --single-branch --branch bmclapi "git@github.com:yushijinhun/authlib-injector.yushi.moe" ~/bmclapi
         fi
 
-    - name: Apply patches
-      id: apply_patches
+    - name: Copy artifacts
       shell: bash
       run: |
         bmclapi_worktree=$(mktemp --directory --tmpdir bmclapi.XXXXXX)
-        echo "::set-output name=bmclapi_worktree::${bmclapi_worktree}"
+        echo "::set-env name=bmclapi_worktree::${bmclapi_worktree}"
         git --work-tree=${bmclapi_worktree} checkout master -- .
+
+    - name: Filter artifacts
+      shell: bash
+      working-directory: ${{ env.bmclapi_worktree }}
+      run: |
+        rm --recursive --force --verbose -- .github .nojekyll CNAME
+        git --git-dir=~/bmclapi checkout -- README.md "~download/index.html"
+
+    - name: Apply patches
+      shell: bash
+      run: |
         for artifact in $(find "artifact" -type f -name "*.json"); do
           jq '.download_url|=sub("^https://authlib-injector\\.yushi\\.moe/";"https://bmclapi2.bangbang93.com/mirrors/authlib-injector/")' < ${artifact} > ${bmclapi_worktree}/${artifact}
         done
 
     - name: Deploy
       shell: bash
+      working-directory: ~/bmclapi
       run: |
-        cd ~/bmclapi
         git config --local user.name "authlib-injector Deploy Bot"
         git config --local user.email "authlib-injector-deploy-bot@yushi.moe"
-        git --work-tree=${{ steps.apply_patches.outputs.bmclapi_worktree }} add --all
+        git --work-tree=${bmclapi_worktree} add --all
         git commit -m "Deploy BMCLAPI mirror"
         git push "git@github.com:yushijinhun/authlib-injector.yushi.moe" bmclapi:bmclapi
+
