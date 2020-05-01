@@ -7,9 +7,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      bmclapi_repo: ${{ env.HOME }}/bmclapi
-
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -23,49 +20,49 @@ jobs:
     - name: Restore bmclapi branch cache
       uses: actions/cache@v1
       with:
-        path: ${{ env.bmclapi_repo }}
+        path: ~/bmclapi
         key: cache-bmclapi
 
     - name: Pull bmclapi branch
       shell: bash
       run: |
-        if [ -d ${bmclapi_repo} ]; then
-          cd ${bmclapi_repo}
+        if [ -d ~/bmclapi ]; then
+          cd ~/bmclapi
           git fetch origin
           git add --all
           git reset --hard origin/bmclapi
         else
-          git clone --single-branch --branch bmclapi "git@github.com:yushijinhun/authlib-injector.yushi.moe" ${bmclapi_repo}
+          git clone --single-branch --branch bmclapi "git@github.com:yushijinhun/authlib-injector.yushi.moe" ~/bmclapi
         fi
 
     - name: Copy artifacts
       shell: bash
       run: |
-        bmclapi_worktree=$(mktemp --directory --tmpdir bmclapi.XXXXXX)
-        echo "::set-env name=bmclapi_worktree::${bmclapi_worktree}"
-        git --work-tree=${bmclapi_worktree} checkout master -- .
+        BMCLAPI_WORKTREE_PATH=$(mktemp --directory --tmpdir bmclapi.XXXXXX)
+        echo "::set-env name=BMCLAPI_WORKTREE_PATH::$BMCLAPI_WORKTREE_PATH"
+        git --work-tree=$BMCLAPI_WORKTREE_PATH checkout master -- .
 
     - name: Filter artifacts
       shell: bash
-      working-directory: ${{ env.bmclapi_worktree }}
+      working-directory: ${{ env.BMCLAPI_WORKTREE_PATH }}
       run: |
         rm --recursive --force --verbose -- .github .nojekyll CNAME
-        git --git-dir=${bmclapi_repo}/.git checkout -- README.md "~download/index.html"
+        git --git-dir=$HOME/bmclapi/.git checkout -- README.md "~download/index.html"
 
     - name: Apply patches
       shell: bash
       run: |
         for artifact in $(find "artifact" -type f -name "*.json"); do
-          jq '.download_url|=sub("^https://authlib-injector\\.yushi\\.moe/";"https://bmclapi2.bangbang93.com/mirrors/authlib-injector/")' < ${artifact} > ${bmclapi_worktree}/${artifact}
+          jq '.download_url|=sub("^https://authlib-injector\\.yushi\\.moe/";"https://bmclapi2.bangbang93.com/mirrors/authlib-injector/")' < $artifact > $BMCLAPI_WORKTREE_PATH/$artifact
         done
 
     - name: Deploy
       shell: bash
-      working-directory: ${{ env.bmclapi_repo }}
       run: |
+        cd ~/bmclapi
         git config --local user.name "authlib-injector Deploy Bot"
         git config --local user.email "authlib-injector-deploy-bot@yushi.moe"
-        git --work-tree=${bmclapi_worktree} add --all
+        git --work-tree=$BMCLAPI_WORKTREE_PATH add --all
         git commit -m "Deploy BMCLAPI mirror"
         git push "git@github.com:yushijinhun/authlib-injector.yushi.moe" bmclapi:bmclapi
 
