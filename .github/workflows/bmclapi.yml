@@ -47,7 +47,7 @@ jobs:
       working-directory: ${{ env.bmclapi_worktree }}
       run: |
         rm --recursive --force --verbose -- .github .nojekyll CNAME
-        git --git-dir=~/bmclapi checkout -- README.md "~download/index.html"
+        git --git-dir=~/bmclapi/.git checkout -- README.md "~download/index.html"
 
     - name: Apply patches
       shell: bash
