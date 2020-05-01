@@ -48,7 +48,7 @@ jobs:
       run: |
         rm --recursive --force --verbose -- .github .nojekyll CNAME
         git --git-dir=$HOME/bmclapi/.git checkout -- README.md
-        sed -zEi 's/<!-- \[\[IF_BMCLAPI\]\](.*)-->/\1/g' "~download/index.html"
+        perl -i -0pe 's/<!-- \[\[IF_BMCLAPI\]\](.*?)-->/\1/sg' "~download/index.html"
 
     - name: Apply patches
       shell: bash
@@ -72,7 +72,7 @@ jobs:
           git commit -m "Deploy BMCLAPI mirror
         
         From commit: $GITHUB_SHA
-        GitHub Action ID: $GITHUB_ACTION
+        GitHub Action: https://github.com/yushijinhun/authlib-injector.yushi.moe/actions/runs/$GITHUB_RUN_ID
         "
           git push "git@github.com:yushijinhun/authlib-injector.yushi.moe" bmclapi:bmclapi
         fi
