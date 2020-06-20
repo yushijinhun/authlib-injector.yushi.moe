@@ -1,5 +1,5 @@
 {
-  "latest_build_number": 28,
+  "latest_build_number": 29,
   "artifacts": [
     {
       "build_number": 1,
@@ -84,6 +84,10 @@
     {
       "build_number": 28,
       "version": "1.1.28-682ecc6"
+    },
+    {
+      "build_number": 29,
+      "version": "1.1.29"
     },
     {
       "build_number": 3,
