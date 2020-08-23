@@ -48,7 +48,7 @@ jobs:
       run: |
         rm --recursive --force --verbose -- .github .nojekyll CNAME
         git --git-dir=$HOME/bmclapi/.git checkout -- README.md
-        perl -i -0pe 's/<!-- \[\[IF_BMCLAPI\]\](.*?)-->/\1/sg' "~download/index.html"
+        perl -i -0pe 's/<!-- \[\[IF_BMCLAPI\]\](.*?)-->/\1/sg' "index.html"
 
     - name: Apply patches
       shell: bash
@@ -61,7 +61,7 @@ jobs:
       shell: bash
       run: |
         cd ~/bmclapi
-        git config --local user.name "authlib-injector Deploy Bot"
+        git config --local user.name "authlib-injector deploy bot"
         git config --local user.email "authlib-injector-deploy-bot@yushi.moe"
         git --work-tree=$BMCLAPI_WORKTREE_PATH add --all
         if git --work-tree=$BMCLAPI_WORKTREE_PATH diff-index --quiet HEAD --; then
