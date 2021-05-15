@@ -39,7 +39,7 @@ jobs:
       shell: bash
       run: |
         BMCLAPI_WORKTREE_PATH=$(mktemp --directory --tmpdir bmclapi.XXXXXX)
-        echo "::set-env name=BMCLAPI_WORKTREE_PATH::$BMCLAPI_WORKTREE_PATH"
+        echo "BMCLAPI_WORKTREE_PATH=$BMCLAPI_WORKTREE_PATH" >> $GITHUB_ENV
         git --work-tree=$BMCLAPI_WORKTREE_PATH checkout master -- .
 
     - name: Filter artifacts
