@@ -61,8 +61,8 @@ jobs:
       shell: bash
       run: |
         cd ~/bmclapi
-        git config --local user.name "authlib-injector deploy bot"
-        git config --local user.email "authlib-injector-deploy-bot@yushi.moe"
+        git config --local user.name "github-actions[bot]"
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git --work-tree=$BMCLAPI_WORKTREE_PATH add --all
         if git --work-tree=$BMCLAPI_WORKTREE_PATH diff-index --quiet HEAD --; then
           # clean
