@@ -1,6 +1,10 @@
 {
-  "latest_build_number": 38,
+  "latest_build_number": 39,
   "artifacts": [
+    {
+      "build_number": 39,
+      "version": "1.1.39"
+    },
     {
       "build_number": 38,
       "version": "1.1.38"
