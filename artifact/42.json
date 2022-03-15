@@ -1,0 +1,8 @@
+{
+  "build_number": 42,
+  "version": "1.1.42",
+  "download_url": "https://authlib-injector.yushi.moe/artifact/42/authlib-injector-1.1.42.jar",
+  "checksums": {
+    "sha256": "c1b5c061809eaffb078c344723e636915e118a9a9e2446562e6289065ce18c3f"
+  }
+}
