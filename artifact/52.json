@@ -1,0 +1,9 @@
+{
+  "build_number": 52,
+  "version": "1.2.4",
+  "release_time": "2023-11-01T11:53:21Z",
+  "download_url": "https://authlib-injector.yushi.moe/artifact/52/authlib-injector-1.2.4.jar",
+  "checksums": {
+    "sha256": "795b276cb40855ed04dc7fcabc2a6d150de4600b542875a6522e65f6b25bca9f"
+  }
+}
