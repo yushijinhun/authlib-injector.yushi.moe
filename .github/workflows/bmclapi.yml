@@ -18,7 +18,7 @@ jobs:
         known_hosts: ${{ secrets.KNOWN_HOSTS }}
 
     - name: Restore bmclapi branch cache
-      uses: actions/cache@v1
+      uses: actions/cache@v4
       with:
         path: ~/bmclapi
         key: cache-bmclapi
